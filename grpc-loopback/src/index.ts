@@ -26,6 +26,7 @@ export async function main(options: ApplicationConfig = {}) {
   // Start the Express server
   const port = process.env.PORT ?? 4000;
   expressApp.listen(port, () => {
+    
     console.log(`Express server is running on port ${port}`);
   });
 

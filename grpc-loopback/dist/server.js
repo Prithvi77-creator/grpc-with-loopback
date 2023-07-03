@@ -15,6 +15,9 @@ class SERVER {
             },
         ];
         this.server = new grpc.Server();
+        this.server.bindAsync('0.0.0.0'.concat(':').concat("3001"), grpc.ServerCredentials.createInsecure(), () => {
+            console.log(`Server started on ${'0.0.0.0'.concat(':').concat("3001")}`);
+        });
         this.packageDefinition = protoLoader.loadSync(this.PROTO_PATH, {
             keepCase: true,
             longs: String,
@@ -24,6 +27,17 @@ class SERVER {
         this.userProto = grpc.loadPackageDefinition(this.packageDefinition);
     }
     startServer() {
+        // this.server.addService(this.userProto.UserService.service, {
+        //   getUsers: (_: any, callback: (arg0: null, arg1: { users: User[] }) => void) => {
+        //     callback(null, { users: this.users });
+        //   },
+        //   addUser: (call: { request: any }, callback: (arg0: null, arg1: any) => void) => {
+        //     const user = call.request;
+        //     this.users.push(user);
+        //     callback(null, user);
+        //   },
+        // });
+        this.server.start();
         this.server.addService(this.userProto.UserService.service, {
             getUsers: (_, callback) => {
                 callback(null, { users: this.users });
@@ -34,14 +48,9 @@ class SERVER {
                 callback(null, user);
             },
         });
-        const bindAddress = '127.0.0.1:30043';
-        this.server.bindAsync(bindAddress, grpc.ServerCredentials.createInsecure(), () => {
-            this.server.start();
-            console.log(`Server started on ${bindAddress}`);
-        });
     }
 }
 exports.SERVER = SERVER;
-const serverInstance = new SERVER();
-serverInstance.startServer();
+// const serverInstance = new SERVER();
+// serverInstance.startServer();
 //# sourceMappingURL=server.js.map
