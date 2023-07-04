@@ -1,6 +1,2 @@
-declare const grpc: any;
-declare const protoLoader: any;
-declare const PROTO_PATH = "./proto/user.proto";
-declare const packageDefinition: any;
-declare const protoDescriptor: any;
-declare const client: any;
+declare const client: import("@grpc/grpc-js/build/src/make-client").ServiceClient;
+export default client;

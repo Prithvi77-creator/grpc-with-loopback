@@ -1,19 +1,21 @@
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
+import { loadPackageDefinition, credentials, ServiceClientConstructor } from '@grpc/grpc-js';
+import { loadSync } from '@grpc/proto-loader';
 
 const PROTO_PATH = './proto/user.proto';
 
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+const packageDefinition = loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,
   enums: String,
   arrays: true,
 });
 
-const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
-const client = new protoDescriptor.UserService(
-  'localhost:30043',
-  grpc.credentials.createInsecure()
+const protoDescriptor = loadPackageDefinition(packageDefinition);
+const UserService = protoDescriptor.UserService as ServiceClientConstructor;
+
+const client = new UserService(
+  'localhost:3001',
+  credentials.createInsecure()
 );
 
-module.exports = client;
+export default client;

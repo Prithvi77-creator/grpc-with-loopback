@@ -1,14 +1,16 @@
 "use strict";
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
+Object.defineProperty(exports, "__esModule", { value: true });
+const grpc_js_1 = require("@grpc/grpc-js");
+const proto_loader_1 = require("@grpc/proto-loader");
 const PROTO_PATH = './proto/user.proto';
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+const packageDefinition = (0, proto_loader_1.loadSync)(PROTO_PATH, {
     keepCase: true,
     longs: String,
     enums: String,
     arrays: true,
 });
-const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
-const client = new protoDescriptor.UserService('localhost:30043', grpc.credentials.createInsecure());
-module.exports = client;
+const protoDescriptor = (0, grpc_js_1.loadPackageDefinition)(packageDefinition);
+const UserService = protoDescriptor.UserService;
+const client = new UserService('localhost:3001', grpc_js_1.credentials.createInsecure());
+exports.default = client;
 //# sourceMappingURL=client.js.map

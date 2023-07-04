@@ -57,6 +57,7 @@
     "@loopback/rest": "^13.0.0",
     "@loopback/rest-explorer": "^6.0.0",
     "@loopback/service-proxy": "^6.0.0",
+    "grpc": "^1.24.11",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
